@@ -406,7 +406,7 @@ footer {
   // height: calc(var(--vh, 1vh) * 100);
   min-height: 500px;
   max-height: 1080px;
-  background: url(../images/lead-bg.jpg);
+  background: url(../images/lead-bg.svg);
   background-size: cover;
   background-position: center center;
   padding: 15px;
@@ -447,7 +447,7 @@ footer {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba($base-color-hover, 0.7);
+  background: rgba($base-color-hover, 0.5);
   z-index: 1;
 }
 
