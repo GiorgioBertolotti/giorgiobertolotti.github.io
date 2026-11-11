@@ -1,0 +1,60 @@
+---
+import Icon from "../Icon.astro";
+import { cta, email } from "../../data/site";
+---
+
+<section id="contact" class="container-page pb-28 md:pb-40">
+  <div class="rounded-3xl bg-surface px-6 py-16 sm:px-12 md:px-16 md:py-24" data-reveal>
+    <h2 class="max-w-[16ch] text-4xl leading-[1.05] font-semibold tracking-tight text-balance md:text-6xl">
+      Have an app in mind?
+    </h2>
+    <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
+      Send me a few lines about your project and timeline, and I'll get back to you with next steps.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <a href={cta.href} class="btn btn-primary group">
+        {cta.label}
+        <Icon name="arrow-right" size={18} class="transition-transform duration-300 group-hover:translate-x-0.5" />
+      </a>
+      <div class="flex items-center gap-2">
+        <span class="text-lg font-medium select-all">{email}</span>
+        <button
+          type="button"
+          data-copy={email}
+          class="relative inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-bg hover:text-ink active:scale-95"
+          aria-label="Copy email address"
+        >
+          <span data-icon="copy"><Icon name="copy" size={18} /></span>
+          <span data-icon="check" hidden><Icon name="check" size={18} /></span>
+        </button>
+        <span data-copy-status role="status" class="text-[14px] text-muted"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((button) => {
+    const status = button.parentElement?.querySelector<HTMLElement>("[data-copy-status]");
+    const copyIcon = button.querySelector<HTMLElement>('[data-icon="copy"]');
+    const checkIcon = button.querySelector<HTMLElement>('[data-icon="check"]');
+    let timer: number | undefined;
+
+    button.addEventListener("click", async () => {
+      window.clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? "");
+        if (copyIcon) copyIcon.hidden = true;
+        if (checkIcon) checkIcon.hidden = false;
+        if (status) status.textContent = "Copied";
+      } catch {
+        if (status) status.textContent = "Couldn't copy, select the address instead";
+      }
+      timer = window.setTimeout(() => {
+        if (copyIcon) copyIcon.hidden = false;
+        if (checkIcon) checkIcon.hidden = true;
+        if (status) status.textContent = "";
+      }, 2400);
+    });
+  });
+</script>

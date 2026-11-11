@@ -1,0 +1,124 @@
+---
+import "../styles/global.css";
+import { email, socials } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "Giorgio Bertolotti | Freelance React Native & mobile app developer",
+  description = "Freelance React Native developer. I help startups and teams ship iOS and Android apps, and the web frontends around them.",
+  noindex = false,
+} = Astro.props;
+
+const site = "https://bertolotti.dev";
+const canonical = new URL(Astro.url.pathname.replace(/index(\.html)?$/, ""), site).href;
+const ogImage = `${site}/images/og.jpg`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Giorgio Bertolotti",
+  url: site,
+  image: ogImage,
+  email: `mailto:${email}`,
+  jobTitle: "Freelance mobile and frontend developer",
+  address: { "@type": "PostalAddress", addressLocality: "Dalmine", addressRegion: "BG", addressCountry: "IT" },
+  knowsAbout: ["React Native", "Expo", "iOS", "Android", "React", "TypeScript", "Frontend development"],
+  sameAs: socials.map((s) => s.href),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Giorgio Bertolotti" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/images/GBLogo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fcfcfb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href="/fonts/OverusedGrotesk-VF.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Giorgio Bertolotti" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Flag JS early so scroll-reveal content is never hidden when JS is off. -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-bg"
+      >Skip to content</a
+    >
+    <slot />
+
+    <script>
+      // Reveal [data-reveal] elements once as they enter the viewport.
+      const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+
+    <!-- Customerly live chat -->
+    <script is:inline>
+      !(function () {
+        var e = window, i = document, t = "customerly", n = "queue", o = "load", r = "settings",
+          u = (e[t] = e[t] || []);
+        if (u.t) return void u.i("[customerly] SDK already initialized. Snippet included twice.");
+        u.t = !0; u.loaded = !1;
+        u.o = ["event", "attribute", "update", "show", "hide", "open", "close"];
+        u[n] = [];
+        u.i = function (t) { e.console && !u.debug && console.error && console.error(t); };
+        u.u = function (e) { return function () { var t = Array.prototype.slice.call(arguments); return t.unshift(e), u[n].push(t), u; }; };
+        u[o] = function (t) {
+          u[r] = t || {};
+          if (u.loaded) return void u.i("[customerly] SDK already loaded. Use customerly.update to change settings.");
+          u.loaded = !0;
+          var e = i.createElement("script");
+          (e.type = "text/javascript"), (e.async = !0), (e.src = "https://messenger.customerly.io/launcher.js");
+          var n = i.getElementsByTagName("script")[0];
+          n.parentNode.insertBefore(e, n);
+        };
+        u.o.forEach(function (t) { u[t] = u.u(t); });
+      })();
+      customerly.load({ app_id: "45c4a78a" });
+    </script>
+  </body>
+</html>

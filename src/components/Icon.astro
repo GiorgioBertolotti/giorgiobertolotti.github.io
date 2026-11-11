@@ -1,0 +1,27 @@
+---
+// Renders a Phosphor icon (regular weight) from @phosphor-icons/core as inline SVG.
+const icons = import.meta.glob<string>(
+  "/node_modules/@phosphor-icons/core/assets/regular/*.svg",
+  { query: "?raw", import: "default", eager: true },
+);
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  label?: string;
+}
+
+const { name, size = 20, class: className = "", label } = Astro.props;
+const raw = icons[`/node_modules/@phosphor-icons/core/assets/regular/${name}.svg`];
+if (!raw) throw new Error(`Unknown Phosphor icon: ${name}`);
+
+const svg = raw.replace(
+  "<svg ",
+  `<svg width="${size}" height="${size}" class="${className}" ${
+    label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'
+  } focusable="false" `,
+);
+---
+
+<Fragment set:html={svg} />

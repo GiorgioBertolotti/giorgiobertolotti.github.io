@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import portrait from "../../assets/portrait.jpg";
+import Icon from "../Icon.astro";
+import { cta } from "../../data/site";
+---
+
+<section class="container-page pt-12 pb-20 md:pt-20 lg:pt-24 lg:pb-28">
+  <div class="grid items-center gap-12 md:grid-cols-12 md:gap-10 lg:gap-16">
+    <div class="md:col-span-7">
+      <p class="enter mb-6 text-[13px] font-medium uppercase tracking-[0.16em] text-muted" style="--i:0">
+        Freelance mobile developer
+      </p>
+      <h1
+        class="enter text-[2.75rem] leading-[1.02] font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:text-7xl"
+        style="--i:1"
+      >
+        Mobile apps, from idea to App&nbsp;Store.
+      </h1>
+      <p class="enter mt-7 max-w-[40ch] text-pretty text-lg leading-relaxed text-muted md:text-xl" style="--i:2">
+        I'm Giorgio, a freelance React Native developer helping teams ship iOS and Android apps, and the web
+        frontends around them.
+      </p>
+      <div class="enter mt-10 flex flex-wrap items-center gap-3" style="--i:3">
+        <a href={cta.href} class="btn btn-primary group">
+          {cta.label}
+          <Icon name="arrow-right" size={18} class="transition-transform duration-300 group-hover:translate-x-0.5" />
+        </a>
+        <a href="#work" class="btn btn-ghost">See my work</a>
+      </div>
+    </div>
+    <div class="enter md:col-span-5" style="--i:2">
+      <Image
+        src={portrait}
+        alt="Giorgio Bertolotti, smiling, in a white shirt in front of a hedge"
+        widths={[420, 640, 900]}
+        sizes="(min-width: 768px) 40vw, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="aspect-[4/5] w-full rounded-3xl object-cover object-[50%_30%] max-md:aspect-[5/4]"
+      />
+    </div>
+  </div>
+</section>
