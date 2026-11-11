@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base title="Page not found | Giorgio Bertolotti" noindex>
+  <Header />
+  <main id="main" class="container-page flex min-h-[70dvh] flex-col justify-center py-24">
+    <h1 class="text-5xl font-semibold tracking-tight md:text-7xl">This page doesn't exist.</h1>
+    <p class="mt-6 max-w-[44ch] text-lg leading-relaxed text-muted">The link may be old, or the address may have a typo.</p>
+    <a href="/" class="btn btn-ghost mt-10 self-start">Back to the homepage</a>
+  </main>
+  <Footer />
+</Base>

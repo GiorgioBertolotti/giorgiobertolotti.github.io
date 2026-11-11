@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/*
+  Design tokens
+  - Brand carried over from the previous site: Overused Grotesk, ink #181818, accent #ffd000.
+  - Accent is only ever a FILL with ink text on top (yellow text on white fails contrast).
+  - Radius system: interactive elements are full pills, media and tiles are 1.5rem (rounded-3xl),
+    inline chips are pills. Nothing else.
+  - Theme follows prefers-color-scheme.
+*/
+
+@font-face {
+  font-family: "Overused Grotesk";
+  src: url("/fonts/OverusedGrotesk-VF.woff2") format("woff2-variations"),
+    url("/fonts/OverusedGrotesk-VF.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+:root {
+  --bg: #fcfcfb;
+  --surface: #f2f2f0;
+  --ink: #181818;
+  --muted: #5b5b58;
+  --line: #e4e4e1;
+  --accent: #ffd000;
+  --accent-ink: #181818;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --surface: #1c1c1b;
+    --ink: #f1f1ee;
+    --muted: #a6a6a1;
+    --line: #2b2b29;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --font-sans: "Overused Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: "ss01";
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3.5 text-[15px] font-medium transition-[transform,background-color,color,border-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-px active:scale-[0.98];
+  }
+  /* Use as class="btn btn-primary" / class="btn btn-ghost" */
+  .btn-primary {
+    @apply bg-accent text-accent-ink hover:bg-ink hover:text-bg;
+  }
+  .btn-ghost {
+    @apply border border-line text-ink hover:border-ink;
+  }
+
+  .link-underline {
+    @apply underline decoration-line decoration-2 underline-offset-[6px] transition-colors hover:decoration-accent;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line px-3 py-1 text-[13px] text-muted;
+  }
+
+  .section-title {
+    @apply text-4xl font-semibold leading-[1.05] tracking-tight text-balance md:text-5xl;
+  }
+}
+
+/* Screenshots have white grounds; soften them so they don't glare on the dark theme. */
+@media (prefers-color-scheme: dark) {
+  .media-frame {
+    filter: brightness(0.88);
+  }
+}
+
+/* Motion: entrance on load + reveal on scroll. Only runs when the user allows motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+  }
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+  }
+
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

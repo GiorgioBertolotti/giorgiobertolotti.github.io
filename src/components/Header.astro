@@ -1,0 +1,30 @@
+---
+import Logo from "./Logo.astro";
+import { cta, nav } from "../data/site";
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-line/0 bg-bg/80 backdrop-blur-md transition-colors supports-[backdrop-filter]:bg-bg/70"
+  style="padding-top: env(safe-area-inset-top, 0px)"
+>
+  <div class="container-page flex h-16 items-center justify-between gap-6 lg:h-[72px]">
+    <a href="/" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Giorgio Bertolotti, home">
+      <Logo class="h-7 w-auto" />
+      <span class="hidden text-[15px] sm:inline">Giorgio Bertolotti</span>
+    </a>
+    <nav aria-label="Primary" class="hidden md:block">
+      <ul class="flex items-center gap-9 text-[15px] text-muted">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="transition-colors hover:text-ink">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href={cta.href} class="btn btn-primary !px-5 !py-2.5">{cta.label}</a>
+  </div>
+</header>

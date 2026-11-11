@@ -1,0 +1,28 @@
+---
+import Icon from "./Icon.astro";
+import { socials } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line" style="padding-bottom: env(safe-area-inset-bottom, 0px)">
+  <div class="container-page flex flex-col-reverse gap-6 py-10 text-[14px] text-muted sm:flex-row sm:items-center sm:justify-between">
+    <p>&copy; {year} Giorgio Bertolotti</p>
+    <ul class="flex items-center gap-2">
+      {
+        socials.map((s) => (
+          <li>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener me"
+              class="inline-flex size-10 items-center justify-center rounded-full transition-colors hover:bg-surface hover:text-ink"
+              aria-label={s.label}
+            >
+              <Icon name={s.icon} size={20} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

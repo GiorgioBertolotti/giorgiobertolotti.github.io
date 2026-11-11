@@ -1,0 +1,23 @@
+---
+// The existing GB mark (images/GBLogo.svg), with fills mapped to theme tokens so it works in dark mode.
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 518.59 543.2" aria-hidden="true" focusable="false">
+  <g transform="translate(-240.46 -228.54)">
+    <path
+      fill="currentColor"
+      d="M759.05,571.74v92a105.44,105.44,0,0,1-8.4,42,108.57,108.57,0,0,1-100.4,66H366a30,30,0,0,1-30-30V258.54a30,30,0,0,1,30-30H650.25a108.21,108.21,0,0,1,108.8,108.8v92.8q0,25.61-12.4,44.4t-38,26q23.19,8.81,36.8,27.2T759.05,571.74Z"
+    ></path>
+    <path
+      fill="var(--bg)"
+      stroke="currentColor"
+      stroke-width="20"
+      stroke-miterlimit="10"
+      d="M349.26,761.74a98.21,98.21,0,0,1-98.8-98.8V337.34a98.21,98.21,0,0,1,98.8-98.8h72.8a98.21,98.21,0,0,1,98.8,98.8v62h-88.8v-42a30,30,0,0,0-30-30h-32.8a30,30,0,0,0-30,30v285.6a30,30,0,0,0,30,30h32.8a30,30,0,0,0,30-30v-62.8h-36v-88h124.8v170.8a98.21,98.21,0,0,1-98.8,98.8Z"
+    ></path>
+  </g>
+</svg>

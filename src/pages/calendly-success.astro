@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base title="Call booked | Giorgio Bertolotti" noindex>
+  <Header />
+  <main id="main" class="container-page flex min-h-[70dvh] flex-col justify-center py-24">
+    <h1 class="enter text-5xl font-semibold tracking-tight md:text-7xl">Call booked.</h1>
+    <p class="enter mt-6 max-w-[44ch] text-lg leading-relaxed text-muted" style="--i:1">
+      Thanks for booking a call. You'll find the details in your inbox. If anything changes, just reply to that email.
+    </p>
+    <a href="/" class="enter btn btn-ghost mt-10 self-start" style="--i:2">Back to the homepage</a>
+  </main>
+  <Footer />
+</Base>

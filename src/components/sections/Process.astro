@@ -1,0 +1,33 @@
+---
+import Icon from "../Icon.astro";
+import { process } from "../../data/site";
+---
+
+<section id="process" class="container-page py-28 md:py-40">
+  <!-- Sticky heading left, steps right. < lg: stacked, heading not sticky. -->
+  <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-32" data-reveal>
+        <h2 class="section-title">How a project runs</h2>
+        <p class="mt-6 max-w-[40ch] text-lg leading-relaxed text-muted">
+          Clear steps, early builds on your phone, and no surprises on scope.
+        </p>
+      </div>
+    </div>
+    <ol class="space-y-16 lg:col-span-7 lg:space-y-24">
+      {
+        process.map((step) => (
+          <li data-reveal class="grid grid-cols-[auto_1fr] gap-x-6 sm:gap-x-8">
+            <span class="flex size-12 items-center justify-center rounded-full border border-line">
+              <Icon name={step.icon} size={22} />
+            </span>
+            <div>
+              <h3 class="text-3xl font-semibold tracking-tight md:text-4xl">{step.verb}</h3>
+              <p class="mt-4 max-w-[46ch] text-lg leading-relaxed text-muted">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

@@ -1,5 +1,14 @@
-# Giorgio Bertolotti
+# bertolotti.dev
 
-This is my personal portfolio.  
-I will keep it updated with my work experience, education and personal projects.  
-Forked by [this](https://github.com/RyanFitzgerald/devportfolio-template) project.
+Personal site of Giorgio Bertolotti, freelance mobile and frontend developer.
+
+Built with [Astro](https://astro.build) and Tailwind CSS v4, deployed to GitHub Pages by `.github/workflows/deploy.yml`.
+
+```sh
+nvm use        # Node 22 (see .nvmrc)
+npm install
+npm run dev    # http://localhost:4321
+npm run build  # static output in dist/
+```
+
+All copy lives in `src/data/site.ts`. Sections are in `src/components/sections/`.

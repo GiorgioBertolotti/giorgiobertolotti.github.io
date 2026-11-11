@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import Icon from "../Icon.astro";
+import { services } from "../../data/site";
+import mangatimePhone from "../../assets/mangatime-phone.webp";
+
+const { mobile, frontend, mvp, upgrades } = services;
+---
+
+<section id="services" class="container-page py-28 md:py-40">
+  <div class="max-w-2xl" data-reveal>
+    <h2 class="section-title">Mobile first, with the web covered too.</h2>
+    <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-muted">
+      Most of my work is cross-platform mobile. When your product also needs a dashboard or a back office, I build
+      that too.
+    </p>
+  </div>
+
+  <!--
+    Bento, 4 cells: mobile (2x2, with app shot) / frontend / mvp / upgrades (full-width, accent fill).
+    < md: single column, in that order.
+  -->
+  <div class="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+    <article
+      data-reveal
+      class="flex flex-col overflow-hidden rounded-3xl bg-surface md:col-span-2 md:row-span-2 md:grid md:grid-cols-2"
+    >
+      <div class="flex flex-col p-8 md:p-10">
+        <Icon name="device-mobile" size={28} />
+        <h3 class="mt-8 text-2xl font-semibold tracking-tight md:text-3xl">{mobile.title}</h3>
+        <p class="mt-4 leading-relaxed text-muted">{mobile.body}</p>
+        <ul class="mt-8 flex flex-wrap gap-2" aria-label="Technologies and capabilities">
+          {mobile.tags.map((tag) => <li class="chip">{tag}</li>)}
+        </ul>
+      </div>
+      <div class="relative h-80 overflow-hidden md:h-auto">
+        <Image
+          src={mangatimePhone}
+          alt="The MangaTime library screen on an iPhone"
+          widths={[320, 576]}
+          sizes="(min-width: 768px) 25vw, 70vw"
+          class="absolute top-6 left-1/2 w-[72%] max-w-[300px] -translate-x-1/2 md:top-10"
+        />
+      </div>
+    </article>
+
+    <article data-reveal style="--i:1" class="rounded-3xl bg-surface p-8 md:p-10">
+      <Icon name="browser" size={28} />
+      <h3 class="mt-8 text-xl font-semibold tracking-tight md:text-2xl">{frontend.title}</h3>
+      <p class="mt-3 leading-relaxed text-muted">{frontend.body}</p>
+    </article>
+
+    <article data-reveal style="--i:2" class="rounded-3xl border border-line p-8 md:p-10">
+      <Icon name="lightbulb" size={28} />
+      <h3 class="mt-8 text-xl font-semibold tracking-tight md:text-2xl">{mvp.title}</h3>
+      <p class="mt-3 leading-relaxed text-muted">{mvp.body}</p>
+    </article>
+
+    <article
+      data-reveal
+      class="flex flex-col gap-6 rounded-3xl bg-accent p-8 text-accent-ink md:col-span-3 md:flex-row md:items-center md:gap-12 md:p-10"
+    >
+      <Icon name="wrench" size={28} class="shrink-0" />
+      <h3 class="text-xl font-semibold tracking-tight md:w-64 md:shrink-0 md:text-2xl">{upgrades.title}</h3>
+      <p class="max-w-[60ch] leading-relaxed text-accent-ink/80">{upgrades.body}</p>
+    </article>
+  </div>
+</section>

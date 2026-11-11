@@ -1,0 +1,59 @@
+---
+import Icon from "../Icon.astro";
+import { awards, education } from "../../data/site";
+---
+
+<section id="about" class="border-t border-line">
+  <div class="container-page py-28 md:py-40">
+    <div class="grid gap-16 lg:grid-cols-12">
+      <div class="lg:col-span-8" data-reveal>
+        <h2 class="sr-only">About me</h2>
+        <p class="text-3xl leading-[1.25] font-medium tracking-tight text-balance md:text-[2.5rem]">
+          I've been writing software since 2017 and building mobile apps since 2020. As co-founder of MangaTime, I've
+          also been the one paying for the app, so I build with your budget and your users in mind.
+        </p>
+        <p class="mt-8 max-w-[56ch] text-lg leading-relaxed text-muted">
+          I'm based near Bergamo, Italy, and work remotely. Away from the keyboard you'll find me on a padel court, or
+          at a table tennis table, where I'm hard to beat.
+        </p>
+      </div>
+    </div>
+
+    <!-- Two quiet columns. < md: stacked. -->
+    <div class="mt-20 grid gap-14 md:grid-cols-2 md:gap-16">
+      <div data-reveal>
+        <h3 class="text-[15px] font-medium text-muted">Education</h3>
+        <ul class="mt-6 space-y-8">
+          {
+            education.map((item) => (
+              <li>
+                <p class="text-lg font-semibold tracking-tight">{item.title}</p>
+                <p class="mt-1 text-muted">
+                  {item.place}, {item.period}
+                </p>
+                <a href={item.href} target="_blank" rel="noopener nofollow" class="link-underline mt-2 inline-flex items-center gap-1 text-[15px]">
+                  {item.linkLabel} <Icon name="arrow-up-right" size={14} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div data-reveal style="--i:1">
+        <h3 class="text-[15px] font-medium text-muted">Recognition</h3>
+        <ul class="mt-6 space-y-8">
+          {
+            awards.map((item) => (
+              <li>
+                <p class="text-lg font-semibold tracking-tight">{item.title}</p>
+                <p class="mt-1 text-muted">
+                  {item.place}, {item.period}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
