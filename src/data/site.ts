@@ -19,10 +19,10 @@ export const socials = [
 ] as const;
 
 export const nav = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Work", href: "/#work" },
+  { label: "Process", href: "/#process" },
+  { label: "About", href: "/#about" },
 ];
 
 export const facts = [

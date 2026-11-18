@@ -1,0 +1,20 @@
+---
+const languages = [
+  { href: "#it", lang: "it", label: "Italiano" },
+  { href: "#en", lang: "en", label: "English" },
+];
+---
+
+<nav aria-label="Lingua / Language">
+  <ul class="flex gap-2">
+    {
+      languages.map((l) => (
+        <li>
+          <a href={l.href} lang={l.lang} hreflang={l.lang} class="chip transition-colors hover:border-ink hover:text-ink">
+            {l.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

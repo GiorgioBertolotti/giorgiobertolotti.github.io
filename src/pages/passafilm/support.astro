@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import LanguageSwitch from "../../components/passafilm/LanguageSwitch.astro";
+import SupportContent from "../../components/passafilm/SupportContent.astro";
+---
+
+<Base
+  title="PassaFilm support | Giorgio Bertolotti"
+  description="Help and contact for PassaFilm. Aiuto e contatti per PassaFilm."
+  noindex
+>
+  <Header />
+  <main id="main" class="container-page py-16 md:py-24">
+    <div class="max-w-[68ch]">
+      <h1 class="text-5xl font-semibold tracking-tight md:text-6xl">PassaFilm</h1>
+      <div class="mt-8">
+        <LanguageSwitch />
+      </div>
+      <div class="mt-14">
+        <SupportContent locale="it" />
+      </div>
+      <hr class="my-20 border-line" />
+      <SupportContent locale="en" />
+    </div>
+  </main>
+  <Footer />
+</Base>

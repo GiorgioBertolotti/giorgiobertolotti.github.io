@@ -1,0 +1,29 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import LanguageSwitch from "../../components/passafilm/LanguageSwitch.astro";
+import PrivacyContent from "../../components/passafilm/PrivacyContent.astro";
+---
+
+<Base
+  title="PassaFilm privacy policy | Giorgio Bertolotti"
+  description="How PassaFilm handles your data. Come PassaFilm tratta i tuoi dati."
+  noindex
+>
+  <Header />
+  <main id="main" class="container-page py-16 md:py-24">
+    <div class="max-w-[68ch]">
+      <h1 class="text-5xl font-semibold tracking-tight md:text-6xl">PassaFilm</h1>
+      <div class="mt-8">
+        <LanguageSwitch />
+      </div>
+      <div class="mt-14">
+        <PrivacyContent locale="it" />
+      </div>
+      <hr class="my-20 border-line" />
+      <PrivacyContent locale="en" />
+    </div>
+  </main>
+  <Footer />
+</Base>
