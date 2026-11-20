@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["3U954QB734.com.passafilm.app"],
+        "components": [{ "/": "/passafilm/join*", "comment": "PassaFilm group invites" }]
+      }
+    ]
+  }
+}

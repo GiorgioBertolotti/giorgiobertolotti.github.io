@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.passafilm.app",
+      "sha256_cert_fingerprints": [
+        "51:24:FB:70:7D:A6:21:57:84:15:B0:6F:3F:00:82:4D:76:6A:81:53:B5:B1:C0:63:C4:4A:1D:BC:EC:D7:3C:04"
+      ]
+    }
+  }
+]
