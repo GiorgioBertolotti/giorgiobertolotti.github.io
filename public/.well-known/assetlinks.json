@@ -5,7 +5,10 @@
       "namespace": "android_app",
       "package_name": "com.passafilm.app",
       "sha256_cert_fingerprints": [
-        "51:24:FB:70:7D:A6:21:57:84:15:B0:6F:3F:00:82:4D:76:6A:81:53:B5:B1:C0:63:C4:4A:1D:BC:EC:D7:3C:04"
+        "51:24:FB:70:7D:A6:21:57:84:15:B0:6F:3F:00:82:4D:76:6A:81:53:B5:B1:C0:63:C4:4A:1D:BC:EC:D7:3C:04",
+        "98:62:DC:F2:6D:5F:39:8B:AA:E8:EB:98:B9:84:C5:D3:11:76:A9:FF:CD:24:98:56:5E:8C:3B:6D:08:B1:04:08",
+        "EB:51:C1:4F:CC:ED:FB:D9:80:A3:32:9E:5E:AE:18:53:71:7D:28:AF:52:BE:BE:85:23:B9:99:37:47:F5:24:1E",
+        "76:CF:D0:4E:7B:C2:F0:0F:14:DB:8E:FC:E0:FA:DC:04:D4:21:46:0F:D5:F1:D8:64:C0:B5:EB:31:76:C6:9D:E5"
       ]
     }
   }
