@@ -1,7 +1,8 @@
 ---
 // Landing for PassaFilm invite links. With the app installed, iOS universal links and Android app links open
 // the app directly and this page is never shown; it covers everyone else.
-const appStoreUrl = "https://apps.apple.com/app/id6836820722";
+const appStoreId = "6836820722";
+const appStoreUrl = `https://apps.apple.com/app/id${appStoreId}`;
 const playStoreUrl = "https://play.google.com/store/apps/details?id=com.passafilm.app";
 const title = "Unisciti al mio gruppo su PassaFilm";
 const description = "Consigliatevi film tra amici e tenete traccia di cosa guardare.";
@@ -27,6 +28,17 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="1024" />
     <meta name="twitter:card" content="summary" />
+    <!-- Safari's Smart App Banner: "Get" without the app, "Open" with it. app-argument hands the app the invite URL,
+         so it's filled in here in the head, before Safari reads the tag. The code is the only part taken from the
+         URL, encoded so a crafted link can't slip extra comma-separated keys into the tag. -->
+    <meta name="apple-itunes-app" id="itunes" content={`app-id=${appStoreId}`} />
+    <script is:inline define:vars={{ appStoreId }}>
+      const inviteCode = new URLSearchParams(location.search).get("code");
+      if (inviteCode) {
+        const appArgument = "https://bertolotti.dev/passafilm/join?code=" + encodeURIComponent(inviteCode.trim());
+        document.getElementById("itunes").content = "app-id=" + appStoreId + ", app-argument=" + appArgument;
+      }
+    </script>
     <style is:global>
       @font-face {
         font-family: "Outfit";
@@ -247,6 +259,21 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
         font-size: 0.9375rem;
       }
 
+      /* Only one store is shown on a phone: give it the full row */
+      .stores__links:has(> [hidden]) {
+        grid-template-columns: 1fr;
+      }
+
+      .stores .notice {
+        margin: 0 0 1.25rem;
+        padding: 1rem 1.25rem;
+        border-radius: 1rem;
+        background: var(--card);
+        box-shadow: inset 0 0 0 1px var(--red);
+        color: var(--screen);
+        font-size: 0.9375rem;
+      }
+
       .invalid {
         margin-top: 2.25rem;
         padding: 1.5rem;
@@ -308,12 +335,18 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
         <span data-i18n="invalidBody">Chiedi a chi ti ha invitato di mandartelo di nuovo, oppure fatti dire il codice.</span>
       </section>
 
-      <section class="stores" aria-labelledby="stores-title">
+      <section class="stores" id="stores" aria-labelledby="stores-title">
+        <!-- The live region stays in the DOM so screen readers announce the notice when it's revealed -->
+        <div role="status">
+          <p class="notice" id="not-installed" hidden data-i18n="notInstalled">
+            Non si è aperto niente? Probabilmente PassaFilm non è ancora installata.
+          </p>
+        </div>
         <h2 id="stores-title" data-i18n="storesTitle">Non hai ancora l'app?</h2>
-        <p data-i18n="storesBody">Installala, poi tocca di nuovo il link di invito.</p>
+        <p id="stores-body" data-i18n="storesBody">Installala, poi tocca di nuovo il link di invito.</p>
         <div class="stores__links">
-          <a class="button button--tonal" href={appStoreUrl}>App Store</a>
-          <a class="button button--tonal" href={playStoreUrl}>Google Play</a>
+          <a class="button button--tonal" id="app-store" href={appStoreUrl}>App Store</a>
+          <a class="button button--tonal" id="play-store" href={playStoreUrl}>Google Play</a>
         </div>
       </section>
     </main>
@@ -331,6 +364,8 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
           invalidBody: "Chiedi a chi ti ha invitato di mandartelo di nuovo, oppure fatti dire il codice.",
           storesTitle: "Non hai ancora l'app?",
           storesBody: "Installala, poi tocca di nuovo il link di invito.",
+          storesBodyDesktop: "Installala sul telefono, poi apri lì il link di invito.",
+          notInstalled: "Non si è aperto niente? Probabilmente PassaFilm non è ancora installata.",
         },
         en: {
           title: "You've been invited to a group",
@@ -343,6 +378,8 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
           invalidBody: "Ask the person who invited you to send it again, or to tell you the code.",
           storesTitle: "Don't have the app yet?",
           storesBody: "Install it, then tap the invite link again.",
+          storesBodyDesktop: "Install it on your phone, then open the invite link there.",
+          notInstalled: "Nothing happened? PassaFilm probably isn't installed yet.",
         },
       };
 
@@ -359,20 +396,55 @@ const description = "Consigliatevi film tra amici e tenete traccia di cosa guard
       const code = raw.trim().toUpperCase();
       const isValid = /^[A-HJ-NP-Z2-9]{6}$/.test(code);
 
+      // iPadOS reports itself as a Mac, so tell it apart by touch support
+      const isAndroid = /android/i.test(navigator.userAgent);
+      const isIOS =
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        (/Macintosh/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+      const isMobile = isAndroid || isIOS;
+
+      // Lead with the store for this device; on desktop there's no app to open, so point at the phone instead
+      if (isIOS) document.getElementById("play-store").hidden = true;
+      if (isAndroid) document.getElementById("app-store").hidden = true;
+      if (!isMobile) document.getElementById("stores-body").textContent = t.storesBodyDesktop;
+
       document.getElementById(isValid ? "ticket" : "invalid").hidden = false;
 
       if (isValid) {
         document.getElementById("code").textContent = code;
 
+        const openLink = document.getElementById("open");
         const appPath = "groups/join?code=" + encodeURIComponent(code);
         // Chrome on Android only follows custom schemes through an intent, which also falls back to the Play Store
-        document.getElementById("open").href = /android/i.test(navigator.userAgent)
+        openLink.href = isAndroid
           ? "intent://" +
             appPath +
             "#Intent;scheme=passafilm;package=com.passafilm.app;S.browser_fallback_url=" +
             encodeURIComponent(playStoreUrl) +
             ";end"
           : "passafilm://" + appPath;
+        openLink.hidden = !isMobile;
+
+        // iOS has no intent fallback: without the app Safari just shows an "invalid address" alert. If the page is
+        // still in front shortly after, point at the App Store instead of redirecting, since with the app installed
+        // Safari first asks "Open in PassaFilm?" and the page stays visible while the visitor reads that prompt.
+        if (isIOS) {
+          let fallbackTimer;
+          const cancelFallback = () => clearTimeout(fallbackTimer);
+          document.addEventListener("visibilitychange", () => document.hidden && cancelFallback());
+          window.addEventListener("pagehide", cancelFallback);
+
+          openLink.addEventListener("click", () => {
+            cancelFallback();
+            fallbackTimer = setTimeout(() => {
+              if (document.visibilityState !== "visible") return;
+              document.getElementById("not-installed").hidden = false;
+              document.getElementById("app-store").classList.replace("button--tonal", "button--primary");
+              const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+              document.getElementById("stores").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+            }, 2000);
+          });
+        }
 
         const copyButton = document.getElementById("copy");
         const copyLabel = document.getElementById("copy-label");
