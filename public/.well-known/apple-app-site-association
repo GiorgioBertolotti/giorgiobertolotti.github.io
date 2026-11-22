@@ -3,7 +3,11 @@
     "details": [
       {
         "appIDs": ["3U954QB734.com.passafilm.app"],
-        "components": [{ "/": "/passafilm/join*", "comment": "PassaFilm group invites" }]
+        "components": [
+          { "/": "/passafilm/join*", "comment": "PassaFilm group invites" },
+          { "/": "/passafilm/u", "comment": "PassaFilm personal links" },
+          { "/": "/passafilm/u/", "comment": "PassaFilm personal links" }
+        ]
       }
     ]
   }
