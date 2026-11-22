@@ -5,8 +5,8 @@ export type Locale = "it" | "en";
 export const contactEmail = email;
 
 export const lastUpdated: Record<Locale, string> = {
-  it: "18 novembre 2026",
-  en: "18 November 2026",
+  it: "22 novembre 2026",
+  en: "22 November 2026",
 };
 
 type Processor = { name: string; href: string; purpose: Record<Locale, string>; location: Record<Locale, string> };
@@ -25,8 +25,8 @@ export const processors: Processor[] = [
     name: "Supabase",
     href: "https://supabase.com/privacy",
     purpose: {
-      it: "Database dell'app: profilo, gruppi, film consigliati, note, stati e voti.",
-      en: "App database: profile, groups, recommended movies, notes, statuses and ratings.",
+      it: "Database dell'app: profilo, gruppi, conversazioni private, film consigliati, note, stati, voti, reazioni e blocchi.",
+      en: "App database: profile, groups, private conversations, recommended movies, notes, statuses, ratings, reactions and blocks.",
     },
     location: { it: "Unione Europea", en: "European Union" },
   },
@@ -88,8 +88,8 @@ export const privacy: Record<Locale, PrivacyCopy> = {
     title: "Privacy policy di PassaFilm",
     summaryTitle: "In breve",
     summary: [
-      "Raccogliamo solo i dati che servono a far funzionare l'app: account, gruppi e film che consigli o voti.",
-      "Quello che pubblichi in un gruppo lo vedono solo i membri di quel gruppo.",
+      "Raccogliamo solo i dati che servono a far funzionare l'app: account, gruppi, conversazioni private e film che consigli o voti.",
+      "Quello che condividi in un gruppo o in una conversazione privata lo vedono solo le persone che ne fanno parte.",
       "Niente pubblicità, niente vendita di dati, niente tracciamento tra app diverse.",
       "Puoi eliminare l'account in qualsiasi momento dall'app.",
     ],
@@ -105,9 +105,11 @@ export const privacy: Record<Locale, PrivacyCopy> = {
         items: [
           "Account: email, nome e foto profilo (se accedi con Apple o Google, quelli che ci condividono), password gestita in forma cifrata da Clerk.",
           "Profilo: il nome visualizzato che scegli e la foto profilo.",
-          "Contenuti dei gruppi: i gruppi di cui fai parte, i film che consigli con le eventuali note, i film che segni da vedere o visti e i voti che dai.",
+          "Contenuti dei gruppi: i gruppi di cui fai parte, i film che consigli con le eventuali note, i film che segni da vedere o visti, i voti e le reazioni che dai.",
+          "Consigli privati: le conversazioni a due che hai aperto, i film che mandi o ricevi con le eventuali note, il codice del tuo link personale e le persone che hai bloccato.",
+          "Attività: quando hai aperto l'app l'ultima volta e il tuo fuso orario, per il promemoria serale, e quando hai aperto per l'ultima volta ogni gruppo o conversazione, per segnarti i film nuovi.",
           "Dispositivo: token per le notifiche push, modello, sistema operativo, versione dell'app e lingua.",
-          "Utilizzo: le azioni principali che compi nell'app (per esempio creare un gruppo o consigliare un film), collegate al tuo account.",
+          "Utilizzo: le azioni principali che compi nell'app (per esempio creare un gruppo, consigliare un film o mandarlo a una persona), collegate al tuo account.",
           "Errori: rapporti tecnici quando l'app si blocca o va in errore.",
         ],
         paragraphs: [
@@ -117,14 +119,17 @@ export const privacy: Record<Locale, PrivacyCopy> = {
       {
         title: "Perché li usiamo",
         items: [
-          "Per fornirti il servizio: creare l'account, farti entrare nei gruppi, mostrare i film consigliati e inviarti le notifiche quando un amico consiglia un film. La base giuridica è l'esecuzione del contratto (art. 6.1.b GDPR).",
+          "Per fornirti il servizio: creare l'account, farti entrare nei gruppi, farti mandare e ricevere film in privato, mostrare i film consigliati e inviarti le notifiche quando un amico ti consiglia o ti manda un film. La base giuridica è l'esecuzione del contratto (art. 6.1.b GDPR).",
           "Per capire come viene usata l'app e correggere gli errori. La base giuridica è il legittimo interesse a migliorare l'app (art. 6.1.f GDPR).",
         ],
       },
       {
         title: "Chi vede i tuoi dati",
         paragraphs: [
-          "Gli altri membri di un gruppo vedono il tuo nome, la tua foto profilo, i film che consigli in quel gruppo con le note, e se li hai visti e con che voto. Gli utenti che non fanno parte del gruppo non vedono nulla di tutto questo.",
+          "Gli altri membri di un gruppo vedono il tuo nome, la tua foto profilo e i film che consigli in quel gruppo con le note. Su quei film vedono anche se li hai visti, con che voto e con quale reazione.",
+          "In una conversazione privata l'altra persona vede il tuo nome, la tua foto profilo, i film che le mandi con le note e, sui film della conversazione, se li hai visti, con che voto e con quale reazione.",
+          "Possono mandarti film in privato solo le persone con cui condividi un gruppo, quelle con cui hai già una conversazione e quelle che aprono il tuo link personale: chi apre il link vede il tuo nome e la tua foto profilo. Se blocchi qualcuno non può più farlo, e non riceve nessun avviso del blocco.",
+          "Chi non condivide con te un gruppo o una conversazione non vede nulla di tutto questo. La tua watchlist e i film che hai visto restano privati, tranne quelli consigliati in un gruppo o in una conversazione che condividete.",
           "I dati sono trattati anche dai fornitori elencati più sotto, ognuno solo per il proprio servizio. Non vendiamo e non cediamo dati a nessuno per fini pubblicitari.",
         ],
       },
@@ -143,7 +148,8 @@ export const privacy: Record<Locale, PrivacyCopy> = {
       {
         title: "Eliminare l'account",
         paragraphs: [
-          "Puoi eliminare l'account da Profilo, Elimina account. Vengono cancellati subito il tuo account, il profilo, i voti, gli stati dei film e la tua appartenenza ai gruppi. I film che hai consigliato restano nei gruppi senza il tuo nome, così gli altri membri non li perdono. Un gruppo in cui eri l'unico membro viene eliminato.",
+          "Puoi eliminare l'account da Profilo, Elimina account. Vengono cancellati subito il tuo account, il profilo, i voti, gli stati dei film, le reazioni, il tuo link personale, i blocchi e la tua appartenenza ai gruppi. I film che hai consigliato restano nei gruppi senza il tuo nome, così gli altri membri non li perdono. Un gruppo in cui eri l'unico membro viene eliminato, e così tutte le tue conversazioni private, con i film che vi eravate mandati.",
+          "Una singola conversazione privata si può eliminare in qualsiasi momento: sparisce per entrambe le persone.",
           "Se non hai più accesso all'app, puoi chiedere l'eliminazione via email all'indirizzo qui sotto.",
         ],
       },
@@ -175,8 +181,8 @@ export const privacy: Record<Locale, PrivacyCopy> = {
     title: "PassaFilm privacy policy",
     summaryTitle: "In short",
     summary: [
-      "We only collect the data the app needs to work: your account, your groups and the movies you recommend or rate.",
-      "What you share in a group is visible only to the members of that group.",
+      "We only collect the data the app needs to work: your account, your groups, your private conversations and the movies you recommend or rate.",
+      "What you share in a group or a private conversation is visible only to the people in it.",
       "No ads, no selling of data, no tracking across other apps.",
       "You can delete your account at any time from the app.",
     ],
@@ -192,9 +198,11 @@ export const privacy: Record<Locale, PrivacyCopy> = {
         items: [
           "Account: email, name and profile picture (when you sign in with Apple or Google, the ones they share with us), and a password stored in hashed form by Clerk.",
           "Profile: the display name you choose and your profile picture.",
-          "Group content: the groups you belong to, the movies you recommend with any notes, the movies you mark as want to watch or watched, and your ratings.",
+          "Group content: the groups you belong to, the movies you recommend with any notes, the movies you mark as want to watch or watched, and your ratings and reactions.",
+          "Private recommendations: the one-to-one conversations you've opened, the movies you send or receive with any notes, the code of your personal link and the people you've blocked.",
+          "Activity: when you last opened the app and your time zone, for the evening reminder, and when you last opened each group or conversation, to flag new movies.",
           "Device: push notification token, model, operating system, app version and language.",
-          "Usage: the main actions you take in the app (for example creating a group or recommending a movie), linked to your account.",
+          "Usage: the main actions you take in the app (for example creating a group, recommending a movie or sending it to someone), linked to your account.",
           "Errors: technical reports when the app crashes or hits an error.",
         ],
         paragraphs: ["We don't collect your location, contacts, photo library or payment details."],
@@ -202,14 +210,17 @@ export const privacy: Record<Locale, PrivacyCopy> = {
       {
         title: "Why we use it",
         items: [
-          "To provide the service: creating your account, letting you join groups, showing recommended movies and notifying you when a friend recommends one. The legal basis is the performance of a contract (Art. 6(1)(b) GDPR).",
+          "To provide the service: creating your account, letting you join groups, letting you send and receive movies privately, showing recommended movies and notifying you when a friend recommends or sends you one. The legal basis is the performance of a contract (Art. 6(1)(b) GDPR).",
           "To understand how the app is used and fix errors. The legal basis is our legitimate interest in improving the app (Art. 6(1)(f) GDPR).",
         ],
       },
       {
         title: "Who sees your data",
         paragraphs: [
-          "Other members of a group see your name, your profile picture, the movies you recommend in that group with their notes, and whether you watched them and how you rated them. People outside the group see none of this.",
+          "Other members of a group see your name, your profile picture and the movies you recommend in that group with their notes. On those movies they also see whether you watched them, how you rated them and how you reacted.",
+          "In a private conversation the other person sees your name, your profile picture, the movies you send them with their notes and, on the conversation's movies, whether you watched them, how you rated them and how you reacted.",
+          "Only people you share a group with, people you already have a conversation with and people who open your personal link can send you movies privately: whoever opens the link sees your name and profile picture. If you block someone they can no longer do so, and they aren't told they were blocked.",
+          "People who don't share a group or a conversation with you see none of this. Your watchlist and the movies you've watched stay private, except the ones recommended in a group or conversation you share.",
           "Data is also processed by the providers listed below, each only for its own service. We don't sell or share data with anyone for advertising.",
         ],
       },
@@ -228,7 +239,8 @@ export const privacy: Record<Locale, PrivacyCopy> = {
       {
         title: "Deleting your account",
         paragraphs: [
-          "You can delete your account from Profile, Delete account. Your account, profile, ratings, movie statuses and group memberships are deleted right away. The movies you recommended stay in their groups without your name, so the other members don't lose them. A group where you were the only member is deleted.",
+          "You can delete your account from Profile, Delete account. Your account, profile, ratings, movie statuses, reactions, personal link, blocks and group memberships are deleted right away. The movies you recommended stay in their groups without your name, so the other members don't lose them. A group where you were the only member is deleted, and so are all your private conversations, with the movies you sent each other.",
+          "A single private conversation can be deleted at any time: it disappears for both people.",
           "If you no longer have access to the app, you can ask for deletion by email at the address below.",
         ],
       },
@@ -263,7 +275,7 @@ type SupportCopy = { title: string; intro: string; contact: string; deleteTitle:
 export const support: Record<Locale, SupportCopy> = {
   it: {
     title: "Supporto PassaFilm",
-    intro: "PassaFilm è l'app per consigliarsi film tra amici, in gruppi privati.",
+    intro: "PassaFilm è l'app per consigliarsi film tra amici, in gruppi privati o a tu per tu.",
     contact: "Per problemi, domande o suggerimenti scrivi a",
     deleteTitle: "Eliminare l'account",
     deleteBody:
@@ -272,7 +284,7 @@ export const support: Record<Locale, SupportCopy> = {
   },
   en: {
     title: "PassaFilm support",
-    intro: "PassaFilm is the app for recommending movies to friends, in private groups.",
+    intro: "PassaFilm is the app for recommending movies to friends, in private groups or one to one.",
     contact: "For problems, questions or suggestions, write to",
     deleteTitle: "Deleting your account",
     deleteBody:
